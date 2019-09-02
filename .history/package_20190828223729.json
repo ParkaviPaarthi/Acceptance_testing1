@@ -39,8 +39,7 @@
     "reselect": "^2.5.3",
     "selenium-webdriver": "4.0.0-alpha.4",
     "xml2js": "^0.4.19",
-    "xmldom": "^0.1.27",
-    "node":"8.9.4"
+    "xmldom": "^0.1.27"
   },
   "main": "./index.js",
   "scripts": {
