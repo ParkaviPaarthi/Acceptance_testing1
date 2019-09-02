@@ -26,7 +26,7 @@ class Weather {
     }
      city_Name(city) {
 
-        driver.wait(until.elementLocated(By.xpath("//input[@id='city']")), 5 * 1000).then(city_name => {
+       var promise= driver.wait(until.elementLocated(By.xpath("//input[@id='city']")), 5 * 1000).then(city_name => {
             city_name.clear();
             city_name.sendKeys(city+'\n');
             
@@ -37,13 +37,11 @@ class Weather {
             driver.close();
             console.log('All browsers closed successfully');
         }, 20000);
-        return validate;
+        return promise;
     }
     day_Selector(day) {
-        // setTimeout(function(){
-        //     console.log('waiting time');
-        // },10000)
-        driver.wait(until.elementLocated(By.xpath("//*[@id='root']/div/div["+day+"]/div[1]/span[1]/span[1]")), 1000).then(day_select => {
+        
+        var promise1=driver.wait(until.elementLocated(By.xpath("//*[@id='root']/div/div["+day+"]/div[1]/span[1]/span[1]")), 1000).then(day_select => {
 
 
             day_select.click();
@@ -55,16 +53,20 @@ class Weather {
             for (let j = 1; j < len; j++) {
                 console.log('j -->', j);
 
-                driver.wait(until.elementLocated(By.xpath("//*/div/div/div["+day+"]/div[2]/div["+j+"]/span[1]/span")),3000).getText()
+              var promise1=  driver.wait(until.elementLocated(By.xpath("//*/div/div/div["+day+"]/div[2]/div["+j+"]/span[1]/span")),3000).getText()
                     .then((text) => {
-                        console.log('text-->', text);
+                        console.log('Hour Data->', text);
                     }).catch((e) => {
                         console.log(e)
                     });
 
             }
             })
-            
+            setTimeout(function() {
+                driver.close();
+                //console.log('All browsers closed successfully');
+            }, 10000);
+            return promise1;
 
     }
 
@@ -74,44 +76,43 @@ class Weather {
 
           day_select.click();
 
-         var ele=driver.findElement(By.xpath("//*/div/div/div["+day+"]/div[2]/div[1]/span[1]/span"));
-          if(ele.is_Enabled()){
-              console.log('enbaled');
-          }
-          else{
-              console.log('disabled');
-          }
-          var elements=driver.findElement(By.xpath("//*/div/div/div["+day+"]/div[2]/div[1]/span[1]/span"))
-            if(elements.length > 0){
-                throw new Error('The Element was found!');
-              } else {
-                console.log('true');
-              }
-           
+          driver.wait(until.elementLocated(By.xpath("//*[@id='root']/div/div[1]/div[2]")),3*1000).then((res)=>{
+
+            if(res){
+                console.log(res)
+                res.isDisplayed().then((resp)=>{
+                    console.log('Element hidden response is:'+resp);
+                })
+            }
+            else{
+                console.log('error')
+            }
+              
+             })
+          })
+            
+             
         
-    })
-    setTimeout(function() {
-        driver.close();
-        console.log('All browsers closed successfully');
-    }, 10000);
+           
+    
     }
 
     weather_Condition(day){
-        driver.wait(until.elementLocated(By.xpath('//*[@id="root"]/div/div['+day+']/div[1]/span[3]/span[1]')),5*1000).getText()
+       var promise1= driver.wait(until.elementLocated(By.xpath('//*[@id="root"]/div/div['+day+']/div[1]/span[3]/span[1]')),5*1000).getText()
         .then((text)=>{
             console.log('Maximum Temperature-->', text);
         }).catch((e) => {
             console.log(e)
+            
         });
-        // setTimeout(function(){
-        //     console.log("hiii");
-        // },3000)
+        
         driver.wait(until.elementLocated(By.xpath('//*[@id="root"]/div/div['+day+']/div[1]/span[3]/span[2]')),5*1000).getText()
         .then((text)=>{
             console.log('Minimum Temperature-->', text);
         }).catch((e) => {
             console.log(e)
         });
+        
         driver.wait(until.elementLocated(By.xpath('//*[@id="root"]/div/div['+day+']/div[1]/span[4]/span[1]')),5*1000).getText()
         .then((text)=>{
             console.log('Speed', text);
@@ -126,7 +127,7 @@ class Weather {
         });
         driver.wait(until.elementLocated(By.xpath('//*[@id="root"]/div/div['+day+']/div[1]/span[5]/span[1]')),5*1000).getText()
         .then((text)=>{
-            console.log('Rainfall', text);
+            console.log('Rainfall-max-->', text);
         }).catch((e) => {
             console.log(e)
         });
@@ -147,14 +148,15 @@ class Weather {
             driver.close();
             console.log('All browsers closed successfully');
         }, 10000);
+        return promise1;
         }
 
          cityErr_Name(city) {
-
+            var promise2
             driver.wait(until.elementLocated(By.xpath("//input[@id='city']")), 5 * 1000).then(city_name => {
                 city_name.clear();
                 city_name.sendKeys(city+'\n');
-                driver.wait(until.elementLocated(By.xpath("//*[@data-test='error']")),5*1000).getText()
+                promise2=  driver.wait(until.elementLocated(By.xpath("//*[@data-test='error']")),5*1000).getText()
                 .then((text)=>{
                     console.log('Error Message:', text);
                     
@@ -169,36 +171,39 @@ class Weather {
                 driver.close();
                 console.log('All browsers closed successfully');
             }, 10000);
+            return promise2;
+            
         }
 
        async dayErr_name(day_count,day_name) {
 
-           var ele= await driver.findElement(By.xpath("//*[@class='name' and @data-test='day-"+day_count+"']")).getText();
+          var ele= await driver.findElement(By.xpath("//*[@class='name' and @data-test='day-"+day_count+"']")).getText();
+            
+                
+               try{
+                   console.log('ele',ele,day_name)
+                 
+                if(JSON.stringify(ele)===JSON.stringify(day_name)){
+                console.log("The day is present now");
+                
+                }else{
+                    throw new Error()
+                } 
+                }
+                    catch(e){
+                        console.log("The day is not present in the webpage or application please choose the another one");
+                          }
+                        
            
-           if(JSON.stringify(ele)!=JSON.stringify(day_name)){
-            console.log("The day is not present in the webpage or application please choose the another one");
-           }
-        else {
-            try{
-                console.log("day is present noww");
-            }
-                catch(e){
-                    console.log(e);
-                      }
-        }
-        
-          
-               
-       // }
-              
-         
-            setTimeout(function() {
+           
+           setTimeout(function() {
                 driver.close();
                 console.log('All browsers closed successfully');
             }, 10000);
+            
         }
         
-
+      
 
     
 }

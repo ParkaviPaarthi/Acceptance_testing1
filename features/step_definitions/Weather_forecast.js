@@ -4,11 +4,11 @@ var seleniumWebdriver = require('selenium-webdriver');
 
 test = require('selenium-webdriver/testing');
 
-var Weather_check=require('../Weather_app/Weather_app.js');
+var Weather_check=require('../action_file/weather_app.js');
 
 Given("a user should launch the weather forecast application",function(){
     Weather_check.get_Driver();
-console.log("Weather app is launched");
+    console.log("Weather app is launched");
 })
 
 When('user enter the {string} name then weather forecast for the cities will be displayed',function(city){

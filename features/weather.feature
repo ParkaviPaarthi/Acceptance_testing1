@@ -10,33 +10,33 @@ Feature: To Find Weather forecast
 #       |city|
 #       |perth|
 
-# Scenario Outline:To get 3 hourly Weather forecast using day
+Scenario Outline:To get 3 hourly Weather forecast using day
 
-#     Given a user should launch the weather forecast application
-#     When user select the <day> then three hourly forecast for the particular days will be displayed
-#     When user select the <day> again then three hourly forecast for the particular days will be hidden
-#    Examples:
-#       |day|
-#       |1|
-    #   |2|
-
-    Scenario Outline:To Summarise the dailyforecast for the 3 hour data
     Given a user should launch the weather forecast application
     When user select the <day> then three hourly forecast for the particular days will be displayed
-    Then user should see <day> the three hour max_min temperature,wind,cloud and rainfall condition for the particular data
+    When user select the <day> again then three hourly forecast for the particular days will be hidden
+   Examples:
+      |day|
+      |1|
+      
 
-    Examples:
-    |day|
-    |1|
+    # Scenario Outline:To Summarise the dailyforecast for the 3 hour data
+    # Given a user should launch the weather forecast application
+    # When user select the <day> then three hourly forecast for the particular days will be displayed
+    # Then user should see <day> the three hour max_min temperature,wind,cloud and rainfall condition for the particular data
 
-  #   Scenario Outline:Error Condition to Find 5 day Weather forecast using city name
+    # Examples:
+    # |day|
+    # |1|
 
-  #   Given a user should launch the weather forecast application
-  #   When user enter the "<city>" name which is not available in the application then it should throw the error
+#     Scenario Outline:Error Condition to Find 5 day Weather forecast using city name
 
-  #  Examples:
-  #     |city|
-  #     |Newyork|
+#     Given a user should launch the weather forecast application
+#     When user enter the "<city>" name which is not available in the application then it should throw the error
+
+#    Examples:
+#       |city|
+#       |perth|
 
 #     Scenario Outline:Unhappy path to get 3 hourly Weather forecast using day
 
@@ -45,6 +45,6 @@ Feature: To Find Weather forecast
     
 #    Examples:
 #       |day_count|day_name|
-#       |1|Mon|
+#       |1|Sun|
 
       

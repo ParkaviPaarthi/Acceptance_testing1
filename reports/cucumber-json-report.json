@@ -1,0 +1,70 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "To Find Weather forecast",
+    "line": 2,
+    "id": "to-find-weather-forecast",
+    "tags": [
+      {
+        "name": "@Weather_Forecast",
+        "line": 1
+      }
+    ],
+    "uri": "features/weather.feature",
+    "elements": [
+      {
+        "id": "to-find-weather-forecast;to-get-3-hourly-weather-forecast-using-day",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "To get 3 hourly Weather forecast using day",
+        "tags": [
+          {
+            "name": "@Weather_Forecast",
+            "line": 1
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 15,
+            "name": "a user should launch the weather forecast application",
+            "match": {
+              "location": "features/step_definitions/weather_forecast.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 16,
+            "name": "user select the 1 then three hourly forecast for the particular days will be displayed",
+            "match": {
+              "location": "features/step_definitions/weather_forecast.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 17,
+            "name": "user select the 1 again then three hourly forecast for the particular days will be hidden",
+            "match": {
+              "location": "features/step_definitions/weather_forecast.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
